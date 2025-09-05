@@ -1,10 +1,6 @@
---// Black Screen Farm UI with Solid Border
---// Made by KienRoBlox ✦
 
--- Auto chạy script gốc
 pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Rx1m/CpsHub/refs/heads/main/Cpsnerf"))()
-end)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Rezexis/Main-Lua/refs/heads/main/Loader.lua"))()
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
