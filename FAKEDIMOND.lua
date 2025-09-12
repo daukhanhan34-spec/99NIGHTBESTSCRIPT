@@ -1,1 +1,137 @@
-rVfPbxvFF7/vXzGshGRL7hKnbagiccgPGiLaUNVJ+R6Q0Hh37B2ynrFmZ5MW1AMnhDj1gDgAUiNU8eVQgRASUixORv0/lr+kb3561nFsF7Gy1+v3Pu/tm/dr3hQ8xQV6UOAnRJToPTTEI7J9QGSPiDOaklZsWXE7MtCexEIScVDRRegZ1wvcU3ejBSSsuiSgWpz5Y/QG3O2PMZV3udjLaZE5c4z+6MYNVNaTZ+iUjlD66rdXF2yIRvXlnyn6+1k9+YblVnVG8YizTK1vQ0t9MH0+QtOLMcrqyQsQ0lrOps85Ojm0MoOKpZJyhvB4XDw55vdwnxQt3v+sHSG46ADB8/ZhudOKj8ljqdlxG3HRpO9WUnIGDJkTpiXVZV4hgQ8mAT5RUM8F3aUUlA2TAWVZS8E6KH47m9eiLicMeiQ3Ui23XGOpugjL9LP6VV/lg2D5fcyUxy5/rqIBLODTjlKLKEN0jKkoW97pKtb7pExBB2aybLXbKONa81UvuffgSvLwZWmuvAxxmnxPI685mandyTKSbe9xxkgqWy4OM9cvfJXJBtCb5vXka5aHOWEjWqaCEGYS7JCVErOUJIycQ9Y6DiSVRyVHkNwAjfeNO3tjzgdEnBzGAeYBFoQp5/uFBMyHpCTyI9Yb43MGkAEuShK59BJGe9OQu4oKRmhu0qOfK8jJPh1tav5GB21uwA0+3c0NB3vAS6oztQFNbnfQja5G68ctj9/F6elQ8Iple7zg4ibImYdkIPjo4cFu6xZIma+T2YEYnCljpKiIpe0LPBzifjFHfkRLeoXo/eS9EzVXfnK4xwUjIu4Y17QT8/8hzmilClctzTnhDkTblhCV+lVNZUFBRhpx1ZVd7UX43IQ1GowtIxfvMrb0u1xb/j6rRvo5OeAyx6NdXmSBpH1DdyugXeffzdsQEXdzr18dli0w13ydjHer9pkugUe0nnzJUFFfvhijYnrhmyA0B3561Vcnhz3NUKmvH5LjnKanjJTK65uOqE25apLKSL8OC/VGaRtNvwWjvqpQPfkFGoDqzd9SNJo+r9CZtjaSuDxNSlUns3o3xX4ObZ8gzT+HjQDyuut7zqyTKstGWOaJwCzjo1b3tjFs1gENbrgmrr8St9wtooOGHdQ3cNt0ZzmrtgX+eGHWAl3lrHla0ACSO428tbhrOoDPcVXHHlvglOSQu0S4hD/K68uXY70JJkkCaW+hjj+jLC2FQMoVw60Gdd1ysCKrC+KO6gX6G6yvWRLXdhmLX9pntnzM+nobXxwyu8NHBrMyaBa2KmZqTRbq4rCjNr7YUZfFIhCchSIgrhkJK7E6EGpDeteViFvgmoEw8JVxgC5yNL2UqA+5Kt+R9eWvcjasST4cFsREYnmQQuTCDVZVul7JHHZxvGDddj9WKRjiXdDUvNBgLK2heQ1BIc2z1q2mUG51JPXEoG8wacy74A028VBwndj+r568hO3qL6ST3OXQfV6VVkl3r4Bt6epYaHqsSQNwqZ6D4bdPhB6cXe/xU7vCNKbo4HAAPE/+t4OwuxYfG8JhXF2z89J2j0BIhTpDAeCISzqgKVZLBG9+0VB9bIceP6mgk3GGJcneijtNoM3Bnjre6IF7G8UoSRYcFZqC+5XQrwbhW57x1G5naor9b+y/V0++o9fY/Ajm9GL6O8wLbLY9IRjuf4KxBqaJ+bUuNdnvwJBpxzozVe9oJPfaqTY/5TIum7TgVfn0D3W8ml5wdJpT07tU9dCxjN7Idd5lcFQBYTggYzgkOR84n90HIuo/QR/mau5DOwz988P/P2E+TYYwbf0YjoaoqMDCxKoJXLgVPW2/Bg==
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- số kim cương mặc định
+local diamonds = 0
+
+-- Hàm áp dụng số vào UI
+local function applyToLabel(obj)
+    if obj:IsA("TextLabel") or obj:IsA("TextButton") then
+        local text = obj.Text
+        if string.find(text, "%d") then
+            obj.Text = tostring(diamonds)
+        end
+    end
+end
+
+-- áp dụng ban đầu
+for _, obj in ipairs(PlayerGui:GetDescendants()) do
+    applyToLabel(obj)
+end
+
+-- auto áp dụng cho UI mới
+PlayerGui.DescendantAdded:Connect(function(obj)
+    applyToLabel(obj)
+end)
+
+-- UI chỉnh kim cương
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "DiamondSpooferUI"
+screenGui.Parent = PlayerGui
+screenGui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 120)
+frame.Position = UDim2.new(0.5, -100, 0.5, -60)
+frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+frame.Active = true
+frame.Draggable = true
+frame.Visible = true
+frame.Parent = screenGui
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Text = "Diamonds"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 16
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+title.Parent = frame
+
+-- Viền lấp lánh
+local stroke = Instance.new("UIStroke")
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(0, 255, 255)
+stroke.Parent = title
+
+-- Hiệu ứng đổi màu viền
+task.spawn(function()
+    while task.wait(0.1) do
+        local r = math.random(150, 255)
+        local g = math.random(150, 255)
+        local b = math.random(150, 255)
+        stroke.Color = Color3.fromRGB(r, g, b)
+    end
+end)
+
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0.8, 0, 0, 30)
+textBox.Position = UDim2.new(0.1, 0, 0, 40)
+textBox.PlaceholderText = "Nhập số..."
+textBox.Text = ""
+textBox.Font = Enum.Font.GothamBold
+textBox.TextSize = 14
+textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textBox.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+textBox.Parent = frame
+Instance.new("UICorner", textBox).CornerRadius = UDim.new(0, 6)
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0.8, 0, 0, 30)
+button.Position = UDim2.new(0.1, 0, 0, 80)
+button.Text = "Apply"
+button.Font = Enum.Font.GothamBold
+button.TextSize = 14
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+button.Parent = frame
+Instance.new("UICorner", button).CornerRadius = UDim.new(0, 6)
+
+-- Nút bật/tắt UI
+local toggleButton = Instance.new("TextButton")
+toggleButton.Size = UDim2.new(0, 50, 0, 25)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.Text = "UI"
+toggleButton.Font = Enum.Font.GothamBold
+toggleButton.TextSize = 14
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+toggleButton.BackgroundColor3 = Color3.fromRGB(100, 100, 200)
+toggleButton.Parent = screenGui
+Instance.new("UICorner", toggleButton).CornerRadius = UDim.new(0, 6)
+
+-- Xử lý Apply
+button.MouseButton1Click:Connect(function()
+    local num = tonumber(textBox.Text)
+    if num then
+        diamonds = num
+        for _, obj in ipairs(PlayerGui:GetDescendants()) do
+            applyToLabel(obj)
+        end
+        StarterGui:SetCore("SendNotification", {
+            Title = "Diamonds Updated!",
+            Text = "Số mới: " .. tostring(diamonds),
+            Duration = 4
+        })
+    else
+        StarterGui:SetCore("SendNotification", {
+            Title = "Lỗi",
+            Text = "Vui lòng nhập số hợp lệ!",
+            Duration = 4
+        })
+    end
+end)
+
+-- Toggle UI
+toggleButton.MouseButton1Click:Connect(function()
+    frame.Visible = not frame.Visible
+end)
+
+-- Thông báo khi bật script
+StarterGui:SetCore("SendNotification", {
+    Title = "Script Loaded!",
+    Text = "Made by Khánh An ✨\nDiamonds giờ lấp lánh luôn.",
+    Duration = 6
+})
